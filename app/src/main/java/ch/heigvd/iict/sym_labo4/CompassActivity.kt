@@ -30,8 +30,8 @@ class CompassActivity : AppCompatActivity(), SensorEventListener {
 
     //values
     private var inR: FloatArray = FloatArray(16)
-    private lateinit var gravity: FloatArray
-    private lateinit var geomagnetic: FloatArray
+    private var gravity: FloatArray = FloatArray(3)
+    private var geomagnetic: FloatArray = FloatArray(3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
