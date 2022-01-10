@@ -16,6 +16,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 
+import android.bluetooth.le.ScanFilter
+
+import android.os.ParcelUuid
+
+
+
+
+
+
+
 /**
  * Project: Labo4
  * Created by fabien.dutoit on 11.05.2019
@@ -153,10 +163,15 @@ class BleActivity : BaseTemplateActivity() {
             //we don't filter them based on advertised services...
             // TODO ajouter un filtre pour n'afficher que les devices proposant
             // le service "SYM" (UUID: "3c0a1000-281d-4b48-b2a7-f15579a1c38f")
+            val symFilter = ScanFilter
+                .Builder()
+                .setServiceUuid(ParcelUuid.fromString(UUID))
+                .build()
+            val filters: List<ScanFilter> = listOf(symFilter)
 
             //reset display
             scanResultsAdapter.clear()
-            bluetoothScanner.startScan(null, builderScanSettings.build(), leScanCallback)
+            bluetoothScanner.startScan(filters, builderScanSettings.build(), leScanCallback)
             Log.d(TAG, "Start scanning...")
             isScanning = true
 
@@ -179,5 +194,6 @@ class BleActivity : BaseTemplateActivity() {
 
     companion object {
         private val TAG = BleActivity::class.java.simpleName
+        private const val UUID = "3c0a1000-281d-4b48-b2a7-f15579a1c38f"
     }
 }
