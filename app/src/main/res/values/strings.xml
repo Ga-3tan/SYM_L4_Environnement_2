@@ -9,9 +9,9 @@
 
     <string name="ble_empty">Veuillez lancer le scan <i>Bluetooth Low Energy</i> en appuyant ci-dessus</string>
 
-    <string name="ble_currenttime_title">Current time</string>
+    <string name="ble_currenttime_title">Current time : </string>
     <string name="ble_currenttime_set">Set time</string>
-    <string name="ble_clickcounter_title">Click counter</string>
+    <string name="ble_clickcounter_title">Click counter : </string>
     <string name="ble_temperature_title">Température</string>
     <string name="ble_temperature_read">Read</string>
 

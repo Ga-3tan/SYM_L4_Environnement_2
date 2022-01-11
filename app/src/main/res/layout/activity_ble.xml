@@ -10,7 +10,7 @@
         android:id="@+id/ble_operation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible" >
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,6 +18,100 @@
             android:orientation="vertical">
 
             <!-- TODO vous placerez dans ce layout toutes les vues nécessaires aux intéractions avec le périphérique BLE -->
+
+            <!-- Time elements -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTimeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ble_currenttime_title" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/sendTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ble_currenttime_set" />
+
+            <!-- Send Integer -->
+            <TextView
+                android:id="@+id/integerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ble_sendvalue_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/intValue"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+                <Button
+                    android:id="@+id/sendIntBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ble_sendvalue_send" />
+            </LinearLayout>
+
+            <!-- Temperature -->
+            <TextView
+                android:id="@+id/temperatureTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ble_temperature_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/readTempBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ble_temperature_read" />
+
+                <TextView
+                    android:id="@+id/temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom" />
+            </LinearLayout>
+
+            <!-- Clicks -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ble_clickcounter_title"
+                    android:id="@+id/tvNbClicksLabel"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nbClicks"
+                    android:gravity="bottom"/>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -38,9 +132,9 @@
             android:id="@+id/ble_scanresults_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ble_empty"
             android:layout_centerInParent="true"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="@string/ble_empty" />
 
     </RelativeLayout>
 
