@@ -45,6 +45,14 @@ class BleActivity : BaseTemplateActivity() {
     private lateinit var scanResults: ListView
     private lateinit var emptyScanResults: TextView
 
+    private lateinit var setTimeBtn: Button
+    private lateinit var currentTimeTV: TextView
+    private lateinit var sendIntBtn: Button
+    private lateinit var numberET: EditText
+    private lateinit var readTemperatureBtn: Button
+    private lateinit var temperatureTV: TextView
+    private lateinit var nbClicks: TextView
+
     //menu elements
     private var scanMenuBtn: MenuItem? = null
     private var disconnectMenuBtn: MenuItem? = null
@@ -70,6 +78,14 @@ class BleActivity : BaseTemplateActivity() {
         scanResults = findViewById(R.id.ble_scanresults)
         emptyScanResults = findViewById(R.id.ble_scanresults_empty)
 
+        setTimeBtn = findViewById(R.id.sendTimeBtn)
+        currentTimeTV = findViewById(R.id.currentTime)
+        sendIntBtn = findViewById(R.id.sendIntBtn)
+        numberET = findViewById(R.id.intValue)
+        readTemperatureBtn = findViewById(R.id.readTempBtn)
+        temperatureTV = findViewById(R.id.temperature)
+        nbClicks = findViewById(R.id.nbClicks)
+
         //manage scanned item
         scanResultsAdapter = ResultsAdapter(this)
         scanResults.adapter = scanResultsAdapter
@@ -90,8 +106,30 @@ class BleActivity : BaseTemplateActivity() {
             }
         }
 
+        setTimeBtn.setOnClickListener {
+            bleViewModel.updateDatetime()
+        }
+
+        sendIntBtn.setOnClickListener {
+            val input = numberET.text.toString()
+            val value: Int
+            try {
+                value = Integer.parseInt(input)
+                bleViewModel.sendInt(value)
+            } catch (e: NumberFormatException) {
+                numberET.setText("Numéro invalide, veuillez entrer un nombre")
+            }
+        }
+
+        readTemperatureBtn.setOnClickListener {
+            bleViewModel.readTemperature()
+        }
+
         //ble events
         bleViewModel.isConnected.observe(this, { updateGui() })
+        bleViewModel.deviceDatetime.observe(this, { updateGui() })
+        bleViewModel.deviceTemperature.observe(this, {updateGui()})
+        bleViewModel.deviceNbClicks.observe(this, { updateGui() })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -138,6 +176,15 @@ class BleActivity : BaseTemplateActivity() {
                 scanMenuBtn!!.isVisible = false
                 disconnectMenuBtn!!.isVisible = true
             }
+
+            if (currentTimeTV.text != bleViewModel.deviceDatetime.value)
+                currentTimeTV.text = bleViewModel.deviceDatetime.value
+            val str = bleViewModel.deviceTemperature.value.toString() + " °C"
+            if (temperatureTV.text != str)
+                temperatureTV.text = str
+            if (nbClicks.text != bleViewModel.deviceNbClicks.value.toString())
+                nbClicks.text = bleViewModel.deviceNbClicks.value.toString()
+
         } else {
             operationPanel.visibility = View.GONE
             scanPanel.visibility = View.VISIBLE

@@ -26,20 +26,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvTimeLabel"
+                    android:id="@+id/timeLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ble_currenttime_title" />
 
                 <TextView
-                    android:id="@+id/time"
+                    android:id="@+id/currentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="bottom" />
             </LinearLayout>
 
             <Button
-                android:id="@+id/sendTime"
+                android:id="@+id/sendTimeBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ble_currenttime_set" />
@@ -54,15 +54,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/intValue"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:inputType="number" />
 
                 <Button
                     android:id="@+id/sendIntBtn"
@@ -81,17 +81,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/readTempBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:text="@string/ble_temperature_read" />
 
                 <TextView
                     android:id="@+id/temperature"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="bottom" />
             </LinearLayout>
@@ -101,16 +103,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/nbClicksLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ble_clickcounter_title"
-                    android:id="@+id/tvNbClicksLabel"/>
+                    android:text="@string/ble_clickcounter_title" />
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/nbClicks"
-                    android:gravity="bottom"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom" />
             </LinearLayout>
 
         </LinearLayout>
