@@ -159,10 +159,9 @@ class BleActivity : BaseTemplateActivity() {
             builderScanSettings.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
             builderScanSettings.setReportDelay(0)
 
-            //we scan for any BLE device
-            //we don't filter them based on advertised services...
-            // TODO ajouter un filtre pour n'afficher que les devices proposant
-            // le service "SYM" (UUID: "3c0a1000-281d-4b48-b2a7-f15579a1c38f")
+            // We scan for any BLE device
+            // We don't filter them based on advertised services...
+            // Define filter for service "SYM" (UUID: "3c0a1000-281d-4b48-b2a7-f15579a1c38f")
             val symFilter = ScanFilter
                 .Builder()
                 .setServiceUuid(ParcelUuid.fromString(UUID))

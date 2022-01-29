@@ -32,10 +32,8 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
     private var ble = SYMBleManager(application.applicationContext)
     private var mConnection: BluetoothGatt? = null
 
-    //live data - observer
+    // Device live data
     val isConnected = MutableLiveData(false)
-
-    //Ours variables
     val deviceTemperature = MutableLiveData<Int>()
     val deviceNbClicks = MutableLiveData<Int>()
     val deviceDatetime = MutableLiveData<String>()
@@ -80,11 +78,6 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
         ble.disconnect()
         mConnection?.disconnect()
     }
-
-    /* TODO
-        vous pouvez placer ici les différentes méthodes permettant à l'utilisateur
-        d'interagir avec le périphérique depuis l'activité
-     */
 
     fun readTemperature(): Boolean {
         if (!isConnected.value!! || temperatureChar == null)
@@ -157,18 +150,7 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
                     public override fun isRequiredServiceSupported(gatt: BluetoothGatt): Boolean {
                         mConnection = gatt //trick to force disconnection
 
-                        Log.d(TAG, "isRequiredServiceSupported - TODO")
-
-                        /* TODO
-                        - Nous devons vérifier ici que le périphérique auquel on vient de se connecter possède
-                          bien tous les services et les caractéristiques attendues, on vérifiera aussi que les
-                          caractéristiques présentent bien les opérations attendues
-                        - On en profitera aussi pour garder les références vers les différents services et
-                          caractéristiques (déclarés en lignes 39 à 44)
-                        */
-
                         // Vérification des services et des caractéristiques
-
                         for (i in gatt.services){
                             if (i.uuid == timeServiceUUID){
                                 timeService = i
@@ -199,28 +181,20 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
                             integerChar     == null ||
                             temperatureChar == null ||
                             buttonClickChar == null) {
-                            return false;
+                            return false
                         }
-
                         return true
                     }
 
                     override fun initialize() {
-                        /*  TODO
-                            Ici nous somme sûr que le périphérique possède bien tous les services et caractéristiques
-                            attendus et que nous y sommes connectés. Nous pouvous effectuer les premiers échanges BLE:
-                            Dans notre cas il s'agit de s'enregistrer pour recevoir les notifications proposées par certaines
-                            caractéristiques, on en profitera aussi pour mettre en place les callbacks correspondants.
-                         */
 
-                        // Register to current time on the device
-
+                        // Number of buttons clicked notification and the corresponding callback.
                         setNotificationCallback(buttonClickChar).with { _: BluetoothDevice?, data: Data ->
                             deviceNbClicks.setValue(data.getIntValue(Data.FORMAT_UINT8, 0))
                         }
                         enableNotifications(buttonClickChar).enqueue()
 
-
+                        // Datetime notification and the corresponding callback.
                         setNotificationCallback(currentTimeChar).with { _: BluetoothDevice?, data: Data ->
                             //Date
                             val year = data.getIntValue(Data.FORMAT_UINT16, 0).toString()
@@ -252,13 +226,6 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
         }
 
         fun readTemperature(): Boolean {
-            /*  TODO
-                on peut effectuer ici la lecture de la caractéristique température
-                la valeur récupérée sera envoyée à l'activité en utilisant le mécanisme
-                des MutableLiveData
-                On placera des méthodes similaires pour les autres opérations
-            */
-            // Read the temperature and push it in the event queue
             return if(temperatureChar != null) {
                 readCharacteristic(temperatureChar).with { _: BluetoothDevice?, data: Data ->
                     deviceTemperature.setValue(
@@ -282,6 +249,7 @@ class BleOperationsViewModel(application: Application) : AndroidViewModel(applic
         }
 
         fun updateDatetime(): Boolean {
+            // We use the system calendar to setup the current datetime
             val calendar: Calendar = Calendar.getInstance()
 
             // Hours
