@@ -17,5 +17,6 @@
 
     <string name="ble_sendvalue_title">Envoi de valeur</string>
     <string name="ble_sendvalue_send">Send</string>
+    <string name="invalid_number">Numéro invalide, veuillez entrer un nombre</string>
 
 </resources>

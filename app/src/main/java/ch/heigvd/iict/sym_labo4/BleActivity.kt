@@ -117,7 +117,7 @@ class BleActivity : BaseTemplateActivity() {
                 value = Integer.parseInt(input)
                 bleViewModel.sendInt(value)
             } catch (e: NumberFormatException) {
-                numberET.setText("Numéro invalide, veuillez entrer un nombre")
+                numberET.setText(getString(R.string.invalid_number))
             }
         }
 
